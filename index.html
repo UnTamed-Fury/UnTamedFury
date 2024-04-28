@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>UNTAMED_FURY</title>
+  <link rel="shortcut icon" type="image/png" href="./favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Rubik:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="./style.css">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300&display=swap" rel="stylesheet"><link rel="stylesheet" href="./style.css">
+<link rel="Gold1" type="font/ttf" href="./Gold Brush Regular.ttf">
+
+</head>
+<body>
+
+<div>
+
+</div>
+
+<div>
+  <h1 data-value="UNTAMED_FURY">UNTAMED_FURY</h1>
+      <script>
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        let interval = null;
+        document.querySelector("h1").onmouseover = event => {  
+          let iteration = 0;
+
+          clearInterval(interval);
+
+          interval = setInterval(() => {
+            event.target.innerText = event.target.innerText
+              .split("")
+              .map((letter, index) => {
+                if(index < iteration) {
+                  return event.target.dataset.value[index];
+                }
+                return letters[Math.floor(Math.random() * 26)]
+              })
+              .join("");
+            if(iteration >= event.target.dataset.value.length){ 
+              clearInterval(interval);
+            }
+
+            iteration += 1 / 3;
+          }, 30);
+        }
+      </script>
+</div>
+<div>
+  <h2 data-value="h2">A       that can't be Tamed.</h2>
+  <img src="./fury.png" alt="fury">
+</style>
+</div>
+</body>
+</html>
