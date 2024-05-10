@@ -10,7 +10,7 @@ body {
 h1 {
   font-family: 'Space Mono', monospace;
   font-size: clamp(2rem, 8vw, 8rem);
-  color: white;
+  color: red;
   padding: 0rem clamp(0.5rem, 1.5vw, 2rem);
   border-radius: clamp(0.3rem, 0.5vw, 0.8rem);
 }
