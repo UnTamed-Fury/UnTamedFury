@@ -1,2 +1,1 @@
-This is my website about my username and I make it better every day as I learn. 😊
-Website link - untamed-fury.github.io/UnTamedFury/
+This is my website about my username and I make it better every day as I learn. 😊       Website link - untamed-fury.github.io/UnTamedFury/
