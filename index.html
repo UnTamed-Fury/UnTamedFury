@@ -43,29 +43,46 @@
         }
       </script>
 </div>
-<script src='https://codepen.io/Hyperplexed/pen/xxYJYjM/54407644e24173ad6019b766443bf2a6.js'></script><script>
-        const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    
-    const randomChar = () => chars[Math.floor(Math.random() * (chars.length - 1))],
-          randomString = length => Array.from(Array(length)).map(randomChar).join("");
-    
-    const card = document.querySelector(".card"),
-          letters = card.querySelector(".card-letters");
-    
-    const handleOnMove = e => {
-      const rect = card.getBoundingClientRect(),
-            x = e.clientX - rect.left,
-            y = e.clientY - rect.top;
-    
-      letters.style.setProperty("--x", `${x}px`);
-      letters.style.setProperty("--y", `${y}px`);
-    
-      letters.innerText = randomString(1500);    
-    }
-    
-    card.onmousem   ove = e => handleOnMove(e);
-    
-    card.ontouchmove = e => handleOnMove(e.touches[0]);
-  </script>
+<div>
+  <div class="github">
+    <div class="link-github">
+      <a href="https://github.com/UnTamed-Fury/" target="_blank" rel="noopener noreferrer"
+        ><div class="https-github-com">
+          XXXXXXXXXXXX<br />XXXXXXXXXXXX<br />XXXXXXXXXXXX<br />XXXXXXXXXXXX<br />XXXXXXXXXXXX<br />XXXXXXXXXXXX
+        </div></a
+      >
+    </div>
+  </div>
+  <div class="discord">
+    <div class="link-discord">
+      <div class="overlap-group">
+        <img class="img" src="img/discord.png" />
+        <a href="https://discord.gg/gAEnkHtR" target="_blank" rel="noopener noreferrer"
+          ><div class="https-discord-gg">
+            XXXXXXXXXXXX<br />XXXXXXXXXXXX<br />XXXXXXXXXXXX<br />XXXXXXXXXXXX<br />XXXXXXXXXXXX<br />XXXXXXXXXXXX
+          </div></a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="instagram">
+    <div class="link-instagram">
+      <a href="https://www.instagram.com/untamed_fury_/" target="_blank" rel="noopener noreferrer"
+        ><div class="https-www-instagram">
+          XXXXXXXXXXXX<br />XXXXXXXXXXXX<br />XXXXXXXXXXXX<br />XXXXXXXXXXXX<br />XXXXXXXXXXXX<br />XXXXXXXXXXXX
+        </div></a
+      >
+    </div>
+  </div>
+  <div class="x">
+    <div class="link-x">
+      <a href="https://x.com/UnTamed__Fury" target="_blank" rel="noopener noreferrer"
+        ><div class="https-x-com-untamed">
+          XXXXXXXXXXXX<br />XXXXXXXXXXXX<br />XXXXXXXXXXXX<br />XXXXXXXXXXXX<br />XXXXXXXXXXXX<br />XXXXXXXXXXXX
+        </div></a
+      >
+    </div>
+  </div>
+</div>
 </body>
 </html>
