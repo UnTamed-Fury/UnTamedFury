@@ -9,7 +9,7 @@ body {
 
 h1 {
   font-family: 'Space Mono', monospace;
-  font-size: clamp(2rem, 8vw, 8rem);
+  font-size: clamp(8rem, 32vw, 32vw);
   background: rgb(255,0,0);
   background: -moz-linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,255,255,1) 100%);
   background: -webkit-linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,255,255,1) 100%);
@@ -18,3 +18,4 @@ h1 {
   padding: 0rem clamp(0.5rem, 1.5vw, 2rem);
   border-radius: clamp(0.3rem, 0.5vw, 0.8rem);
 }
+
