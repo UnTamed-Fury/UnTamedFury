@@ -8,7 +8,7 @@
 html, body {
   width: 100%;
   height: 100%;
-  overflow: hidden;               /* hide page scrollbar */
+  overflow: hidden;
   background: #000;
   color: #0f0;
   font-family: monospace;
@@ -58,6 +58,13 @@ a:hover { text-decoration: underline; }
     / 1fr 1fr;
   height: 100vh;
 }
+
+/* place panels */
+.about    { grid-area: about; }
+.music    { grid-area: music; }
+.terminal { grid-area: terminal; }
+
+/* panels share styling */
 .panel {
   border: 1px solid #0f0;
   overflow: hidden;
@@ -93,7 +100,7 @@ a:hover { text-decoration: underline; }
 .logo-cell img {
   max-width: 80%;
   transform: scale(1.5);
-  margin-bottom: 6rem;
+  margin-bottom: 1rem;
 }
 .logo-cell p {
   text-align: center;
@@ -130,7 +137,7 @@ a:hover { text-decoration: underline; }
 }
 .song-list {
   flex: 1;
-  overflow-y: auto;              /* invisible scrollbar */
+  overflow-y: auto;
   padding-right: 0.5rem;
   scrollbar-width: none;         /* Firefox */
   -ms-overflow-style: none;      /* IE 10+ */
@@ -158,52 +165,47 @@ a:hover { text-decoration: underline; }
   flex-direction: column;
   padding: 1rem;
 }
+
 .input-area {
   display: flex;
   align-items: center;
   gap: 0.5ch;
   margin-bottom: 0.5rem;
 }
+
 .prompt {
   color: lime;
 }
+
 .terminal-input {
   flex: 1;
   background: transparent;
-  border: none;
-  border-bottom: 1px solid #0f0;
+  border: none;            /* no borders at all */
   color: #0f0;
   outline: none;
   font-family: monospace;
-  /* blinking caret */
-  caret-color: #0f0;
+  caret-color: #0f0;       /* real green blinking caret */
+  /* you can add padding-bottom if you want spacing under text */
 }
+
 .terminal-input::placeholder {
   color: rgba(0,255,0,0.5);
 }
-@keyframes blinkCaret {
-  0%,100% { border-color: transparent; }
-  50%      { border-color: #0f0; }
-}
-.terminal-input {
-  border-right: 2px solid #0f0;
-  animation: blinkCaret 1s step-start infinite;
-}
+
 .terminal-output {
   flex: 1;
-  overflow-y: auto;              /* invisible scrollbar */
+  overflow-y: auto;        /* invisible scrollbar */
   padding-right: 0.5rem;
   white-space: pre-wrap;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+
 .terminal-output::-webkit-scrollbar {
-  width: 0; height: 0;
+  width: 0;
+  height: 0;
 }
 
-/*----------------------------------
-  Box Output
-----------------------------------*/
 .box-output {
   margin: 0.5rem 0;
   font-family: monospace;

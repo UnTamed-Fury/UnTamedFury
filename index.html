@@ -23,13 +23,14 @@
     <!-- About Panel -->
     <div class="panel about">
       <div class="about-grid">
-          <div class="logo-cell">
-            <img src="fury.png" alt="Logo"/>
-            <p>Known by many names.</p>
-          </div>
+        <div class="logo-cell">
+          <img src="fury.png" alt="Logo"/>
+          <p>Known by many names.</p>
+        </div>
       </div>
     </div>
 
+    <!-- Music Panel -->
     <div class="panel music">
       <div class="controls">
         <button id="prev">⏮</button>
@@ -38,16 +39,18 @@
       </div>
       <div class="song-list" id="song-list"></div>
     </div>
-
+    
     <!-- Terminal Panel -->
     <div class="panel terminal">
+      <!-- output first -->
+      <div class="terminal-output" id="terminal-output"></div>
+
+      <!-- then input at bottom -->
       <div class="input-area">
         <span class="prompt">$ ~</span>
         <input id="terminal-input" class="terminal-input" placeholder="help" />
       </div>
-      <div class="terminal-output" id="terminal-output"></div>
     </div>
-  </div>
 
   <!-- App Scripts -->
   <script src="js/title.js"></script>

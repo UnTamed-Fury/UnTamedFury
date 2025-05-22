@@ -1,188 +1,113 @@
 // js/terminal.js
-const outEl   = document.getElementById('terminal-output');
-const inEl    = document.getElementById('terminal-input');
-const CMDS    = [
-  'help','about','projects','social','connect',
-  'skills','whoami','echo','history','clear',
-  'buymecoffee','neofetch'
-];
-const hist    = [];
-let histIdx   = -1;
-const fuse    = new Fuse(CMDS, { threshold: 0.3 });
+let CMD_MAP = {};
+const historyLog = [];
+let historyIdx = -1;
+const bootTime = window.__furyBootTime || Date.now();
 
-function appendOutput(txt) {
+const outEl = document.getElementById('terminal-output');
+const inEl  = document.getElementById('terminal-input');
+
+// Load commands
+fetch('/cmd.json')
+  .then(r => r.json())
+  .then(cmds => { cmds.forEach(c => CMD_MAP[c.cmd]=c); initTerminal(); })
+  .catch(() => initTerminal());
+
+function appendOutput(html) {
   const d = document.createElement('div');
   d.className = 'box-output';
-  d.textContent = txt;
+  d.innerHTML = html;
   outEl.append(d);
   outEl.scrollTop = outEl.scrollHeight;
 }
 
+// Box helper (still used by dynamic commands)
 function createBox(title, lines) {
-  const el = document.createElement('div');
-  el.className = 'box-output';
-  const w = Math.max(title.length, ...lines.map(l => l.length)) + 4;
-  const top = '╭' + '─'.repeat(w) + '╮';
-  const hdr = `│ ${title}${' '.repeat(w - title.length - 1)}│`;
-  const mids = lines.map(l => `│ ${l}${' '.repeat(w - l.length - 1)}│`);
-  const bot = '╰' + '─'.repeat(w) + '╯';
-  el.textContent = [top, hdr, ...mids, bot].join('\n');
-  return el;
+  const strip = s=>s.replace(/<[^>]+>/g,'');
+  const w = Math.max(strip(title).length, ...lines.map(l=>strip(l).length)) + 4;
+  const top = '╭'+'─'.repeat(w)+'╮';
+  const hdr = `│ ${title}${' '.repeat(w-strip(title).length-1)}│`;
+  const mids= lines.map(l=>`│ ${l}${' '.repeat(w-strip(l).length-1)}│`);
+  const bot = '╰'+'─'.repeat(w)+'╯';
+  return [top,hdr,...mids,bot].join('<br>');
+}
+function createMini(text) {
+  const w = text.length+2;
+  return ['┌'+'─'.repeat(w)+'┐',`│ ${text} │`,'└'+'─'.repeat(w)+'┘'].join('<br>');
 }
 
-function createMiniBox(text) {
-  const el = document.createElement('div');
-  el.className = 'box-output';
-  const w = text.length + 2;
-  el.textContent = [
-    '┌' + '─'.repeat(w) + '┐',
-    `│ ${text} │`,
-    '└' + '─'.repeat(w) + '┘'
-  ].join('\n');
-  return el;
-}
-
-function run(cmdLine) {
-  if (!cmdLine) return;
-  appendOutput(`$ ~ ${cmdLine}`);
-  hist.push(cmdLine);
-  histIdx = hist.length;
-  const [cmd, ...args] = cmdLine.trim().split(/\s+/);
-  let out;
-
-  switch (cmd) {
-    case 'help':
-      out = createBox('Commands', CMDS);
-      appendOutput(out);
-      break;
-
-    case 'about':
-      out = createBox('About Me', ['Short about me here']);
-      appendOutput(out);
-      break;
-
-    case 'projects':
-      out = createBox('My Projects', ['Naiko', 'Phub']);
-      appendOutput(out);
-      break;
-
-    case 'social':
-      out = createBox('Social Media', ['Instagram: untamed_fury_']);
-      appendOutput(out);
-      break;
-
-    case 'connect':
-      out = createBox('Code Profiles', ['GitHub: UnTamed-Fury']);
-      appendOutput(out);
-      break;
-
-    case 'skills':
-      out = createBox('Learning Journey', ['Bash [███████░░░] 7/10']);
-      appendOutput(out);
-      break;
-
-    case 'whoami':
-      appendOutput('Fetching your IP addresses…');
-      // Fetch IPv4 and IPv6 concurrently
-      Promise.all([
-        fetch('https://api.ipify.org?format=json').then(r => r.json()).catch(() => null),
-        fetch('https://api64.ipify.org?format=json').then(r => r.json()).catch(() => null)
-      ]).then(([v4, v6]) => {
-        if (v4 && v4.ip) appendOutput(`User identity: IPv4 ${v4.ip}`);
-        else appendOutput('User identity: IPv4 unavailable');
-
-        if (v6 && v6.ip) appendOutput(`User identity: IPv6 ${v6.ip}`);
-        else appendOutput('User identity: IPv6 unavailable');
-      });
-      break;
-
-    case 'echo':
-      out = args.length
-        ? createMiniBox(args.join(' '))
-        : createBox('Echo Command', ['Usage: echo [text]']);
-      appendOutput(out);
-      break;
-
-    case 'history':
-      out = createBox('Command History', hist.map((c, i) => `${i + 1}. ${c}`));
-      appendOutput(out);
-      break;
-
-    case 'buymecoffee':
-      out = createBox('Support', ['https://buymeacoffee.com/untamedfury']);
-      appendOutput(out);
-      break;
-
-    case 'neofetch':
-      out = [
-        '            .---.        Fury Shell v1.0',
-        "         .'_:___\".       ===========================",
-        "         |__ --==|       OS: Ubuntu 24.04 LTS (64-bit)",
-        "         [  ]  :[|       Host: fury.local",
-        "         |__| I=[|       Uptime: 42 minutes (and counting)",
-        "         / / ____|       Packages: 1337 (nice)",
-        "        |-/ .____.'       Shell: /bin/fury",
-        "       /___\\ /___\\       Resolution: 1920x1080 (terminal-chic)",
-        "                         Terminal: Custom Web TTY",
-        "                                                                             Fury Info        CPU: 4x Intel i7 @ 2.90GHz",
-        "        ------------     RAM: 8192MB (42% hoarded by Fury)",
-        "                         GPU: LOL integrated (do you even game?)",
-        "                         IP: 192.168.1.42 (stealth mode)",
-        "",
-        '         “Booted faster than your brain on Monday”'
-      ].join('\n');
-      appendOutput(out);
-      break;
-
-    case 'clear':
-      outEl.innerHTML = '';
-      break;
-
-    default:
-      out = createBox('Error', [`Unknown command: ${cmd}`]);
-      appendOutput(out);
+// Dynamic commands
+const DYN = {
+  echo(args) {
+    if (!args.length) {
+      appendOutput(createBox('Usage',[CMD_MAP.echo.usage]));
+    } else {
+      appendOutput(createMini(args.join(' ')));
+    }
+  },
+  whoami() {
+    appendOutput('Fetching IP…');
+    Promise.all([
+      fetch('https://api.ipify.org?format=json').then(r=>r.json()).catch(()=>null),
+      fetch('https://api64.ipify.org?format=json').then(r=>r.json()).catch(()=>null)
+    ]).then(([v4,v6]) => {
+      appendOutput(`IPv4: ${v4?.ip||'unavailable'}`);
+      appendOutput(`IPv6: ${v6?.ip||'unavailable'}`);
+    });
+  },
+  uptime() {
+    const s = Math.floor((Date.now()-bootTime)/1000);
+    const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sec=s%60;
+    appendOutput(`Uptime: ${h}h ${m}m ${sec}s`);
+  },
+  date() {
+    appendOutput(new Date().toString());
+  },
+  history() {
+    historyLog.forEach((c,i)=>appendOutput(`${i+1}. ${c}`));
+  },
+  clear() {
+    outEl.innerHTML = '';
+  },
+  neofetch() {
+    const lines = [
+      'Fury Shell v1.0',
+      `Uptime     : ${((Date.now()-bootTime)/1000|0)}s`,
+      `Cores      : ${navigator.hardwareConcurrency||'N/A'}`,
+      `Resolution : ${screen.width}x${screen.height}`,
+      `Agent      : ${navigator.userAgent.split(' ')[0]}`,
+      `Time       : ${new Date().toLocaleString()}`
+    ];
+    appendOutput(createBox('neofetch',lines));
+  },
+  buymecoffee() {
+    appendOutput('<a href="https://buymeacoffee.com/untamedfury" target="_blank">☕ Buy me a coffee</a>');
   }
-}
+};
 
-// Autocomplete
-let dropdown;
-function showAC(prefix) {
-  if (dropdown) dropdown.remove();
-  const matches = fuse.search(prefix).slice(0, 5).map(r => r.item);
-  if (!matches.length) return;
-  dropdown = document.createElement('div');
-  dropdown.className = 'autocomplete-list';
-  matches.forEach((m, i) => {
-    const d = document.createElement('div');
-    d.className = 'autocomplete-item' + (i === 0 ? ' active' : '');
-    d.textContent = m;
-    d.onclick = () => {
-      inEl.value = m + ' ';
-      dropdown.remove();
-      inEl.focus();
-    };
-    dropdown.append(d);
+function initTerminal() {
+  const allCmds = Object.keys(CMD_MAP).concat(Object.keys(DYN));
+  const fuse = new Fuse(allCmds, { threshold: 0.3 });
+
+  inEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const line = inEl.value.trim();
+      if (!line) return;
+      appendOutput(`$ ~ ${line}`);
+      historyLog.push(line);
+      historyIdx = historyLog.length;
+      const [cmd, ...args] = line.split(/\s+/);
+
+      const meta = CMD_MAP[cmd];
+      if (meta && meta.type==='static') {
+        // **static** commands now plain text
+        meta.output.forEach(l => appendOutput(l));
+      } else if (DYN[cmd]) {
+        DYN[cmd](args);
+      } else {
+        appendOutput(createBox('Error',[`Unknown command: ${cmd}`]));
+      }
+      inEl.value = '';
+    }
   });
-  document.body.append(dropdown);
-  const { x, y, height } = inEl.getBoundingClientRect();
-  dropdown.style.left = `${x}px`;
-  dropdown.style.top = `${y + height}px`;
 }
-
-inEl.addEventListener('keydown', e => {
-  if (e.key === 'Enter') {
-    run(inEl.value.trim());
-    inEl.value = '';
-    if (dropdown) dropdown.remove();
-  } else if (e.key === 'Tab') {
-    e.preventDefault();
-    showAC(inEl.value);
-  } else if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && dropdown) {
-    const items = [...dropdown.children];
-    let i = items.findIndex(it => it.classList.contains('active'));
-    items[i].classList.remove('active');
-    i = (i + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
-    items[i].classList.add('active');
-    e.preventDefault();
-  }
-});

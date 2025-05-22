@@ -1,0 +1,128 @@
+[
+  {
+    "cmd": "help",
+    "usage": "help",
+    "type": "static",
+    "description": "List all available commands",
+    "output": [
+      "help         - List all commands",
+      "about        - About UnTamed Fury",
+      "projects     - Show projects",
+      "social       - Social media links",
+      "connect      - Code profiles",
+      "skills       - Learning journey",
+      "whoami       - Your IP address",
+      "uptime       - Time since boot",
+      "date         - Current date & time",
+      "echo [text]  - Repeat your text",
+      "clear        - Clear the terminal",
+      "history      - Command history",
+      "neofetch     - System summary",
+      "buymecoffee  - Support the creator"
+    ]
+  },
+  {
+    "cmd": "about",
+    "usage": "about",
+    "type": "static",
+    "description": "Who is behind this terminal",
+    "output": [
+      "UnTamed Fury - dynamic dev forging code with finesse",
+      "Fuel: coffee ☕ & memes 😂"
+    ]
+  },
+  {
+    "cmd": "projects",
+    "usage": "projects",
+    "type": "static",
+    "description": "List notable work",
+    "output": [
+      "Naiko  - Aniyomi fork with Yokai UI",
+      "Phub   - SkyBlock player portfolio"
+    ]
+  },
+  {
+    "cmd": "social",
+    "usage": "social",
+    "type": "static",
+    "description": "Connect with me online",
+    "output": [
+      "Instagram: <a href=\"https://instagram.com/untamed_fury_\" target=\"_blank\">untamed_fury_</a>",
+      "Telegram : <a href=\"https://t.me/UnTamedFury\" target=\"_blank\">@UnTamedFury</a>",
+      "VK       : <a href=\"https://vk.com/untamed_fury\" target=\"_blank\">untamed_fury</a>",
+      "Discord  : <a href=\"https://discord.com/users/1130510553266278501\" target=\"_blank\">untamed_fury</a>"
+    ]
+  },
+  {
+    "cmd": "connect",
+    "usage": "connect",
+    "type": "static",
+    "description": "Code hosting profiles",
+    "output": [
+      "GitHub: <a href=\"https://github.com/UnTamed-Fury\" target=\"_blank\">UnTamed-Fury</a>",
+      "GitLab: <a href=\"https://gitlab.com/UnTamedFury\" target=\"_blank\">UnTamedFury</a>"
+    ]
+  },
+  {
+    "cmd": "skills",
+    "usage": "skills",
+    "type": "static",
+    "description": "Current learning journey",
+    "output": [
+      "Bash    [███████░░░] 7/10",
+      "Python  [█████░░░░░] 5/10",
+      "Git     [██████░░░░] 6/10",
+      "HTML    [█████████░] 9/10",
+      "CSS     [██████░░░░] 6/10",
+      "Linux   [████████░░] 8/10"
+    ]
+  },
+  {
+    "cmd": "echo",
+    "usage": "echo [text]",
+    "type": "dynamic",
+    "description": "Repeat your text"
+  },
+  {
+    "cmd": "whoami",
+    "usage": "whoami",
+    "type": "dynamic",
+    "description": "Show your public IP address"
+  },
+  {
+    "cmd": "uptime",
+    "usage": "uptime",
+    "type": "dynamic",
+    "description": "Time since terminal booted"
+  },
+  {
+    "cmd": "date",
+    "usage": "date",
+    "type": "dynamic",
+    "description": "Show current date & time"
+  },
+  {
+    "cmd": "history",
+    "usage": "history",
+    "type": "dynamic",
+    "description": "Show command history"
+  },
+  {
+    "cmd": "clear",
+    "usage": "clear",
+    "type": "dynamic",
+    "description": "Clear the terminal"
+  },
+  {
+    "cmd": "neofetch",
+    "usage": "neofetch",
+    "type": "dynamic",
+    "description": "Display system summary"
+  },
+  {
+    "cmd": "buymecoffee",
+    "usage": "buymecoffee",
+    "type": "dynamic",
+    "description": "Support the creator"
+  }
+]
