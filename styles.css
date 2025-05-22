@@ -1,0 +1,210 @@
+/*----------------------------------
+  Base & Reset
+----------------------------------*/
+* {
+  box-sizing: border-box;
+  margin: 0; padding: 0;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;               /* hide page scrollbar */
+  background: #000;
+  color: #0f0;
+  font-family: monospace;
+}
+a { color: #0f0; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/*----------------------------------
+  Boot Screen
+----------------------------------*/
+#loading-screen {
+  position: fixed; inset: 0;
+  background: #000;
+  color: #0f0;
+  padding: 1rem;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  font-size: 1rem;
+  font-family: monospace;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  z-index: 10000;
+}
+
+/*----------------------------------
+  Main UI Transition
+----------------------------------*/
+#main-ui {
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 0.8s ease, filter 0.8s ease;
+}
+#main-ui.ready {
+  opacity: 1;
+  filter: none;
+}
+
+/*----------------------------------
+  Grid Layout: 1|2 over 3
+----------------------------------*/
+.grid {
+  display: grid;
+  grid-template:
+    "about music" 1fr
+    "terminal terminal" 2fr
+    / 1fr 1fr;
+  height: 100vh;
+}
+.panel {
+  border: 1px solid #0f0;
+  overflow: hidden;
+}
+
+/*----------------------------------
+  About Panel (5×5 grid)
+----------------------------------*/
+.about {
+  display: flex;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  grid-template-rows: repeat(5,1fr);
+  gap: 0.2rem;
+  width: 100%;
+  height: 100%;
+}
+.about-grid > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo-cell {
+  grid-column: 2 / 5;
+  grid-row: 2 / 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.logo-cell img {
+  max-width: 80%;
+  transform: scale(1.5);
+  margin-bottom: 6rem;
+}
+.logo-cell p {
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.2;
+  color: #0f0;
+}
+
+/*----------------------------------
+  Music Panel
+----------------------------------*/
+.music {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+.controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.controls button {
+  flex: 1;
+  background: transparent;
+  border: 1px solid #0f0;
+  color: #0f0;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.controls button:hover {
+  background: #0f0;
+  color: #000;
+}
+.song-list {
+  flex: 1;
+  overflow-y: auto;              /* invisible scrollbar */
+  padding-right: 0.5rem;
+  scrollbar-width: none;         /* Firefox */
+  -ms-overflow-style: none;      /* IE 10+ */
+}
+.song-list::-webkit-scrollbar {
+  width: 0; height: 0;           /* Chrome, Safari */
+}
+.song-list div {
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+}
+.song-list div:hover {
+  background: rgba(0,255,0,0.1);
+}
+.song-list div.active {
+  background: rgba(0,255,0,0.2);
+  font-weight: bold;
+}
+
+/*----------------------------------
+  Terminal Panel
+----------------------------------*/
+.terminal {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+.input-area {
+  display: flex;
+  align-items: center;
+  gap: 0.5ch;
+  margin-bottom: 0.5rem;
+}
+.prompt {
+  color: lime;
+}
+.terminal-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #0f0;
+  color: #0f0;
+  outline: none;
+  font-family: monospace;
+  /* blinking caret */
+  caret-color: #0f0;
+}
+.terminal-input::placeholder {
+  color: rgba(0,255,0,0.5);
+}
+@keyframes blinkCaret {
+  0%,100% { border-color: transparent; }
+  50%      { border-color: #0f0; }
+}
+.terminal-input {
+  border-right: 2px solid #0f0;
+  animation: blinkCaret 1s step-start infinite;
+}
+.terminal-output {
+  flex: 1;
+  overflow-y: auto;              /* invisible scrollbar */
+  padding-right: 0.5rem;
+  white-space: pre-wrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.terminal-output::-webkit-scrollbar {
+  width: 0; height: 0;
+}
+
+/*----------------------------------
+  Box Output
+----------------------------------*/
+.box-output {
+  margin: 0.5rem 0;
+  font-family: monospace;
+}
