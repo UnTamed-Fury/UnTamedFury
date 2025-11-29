@@ -1,54 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>UNTAMED_FURY</title>
-  <link rel="shortcut icon" type="image/png" href="./favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Rubik:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="./style.css">
-<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300&display=swap" rel="stylesheet"><link rel="stylesheet" href="./style.css">
-<link rel="Gold1" type="font/ttf" href="./Gold Brush Regular.ttf">
+  <link rel="stylesheet" href="./style.css">
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Rubik:wght@400;500&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<div>
-  <h1 data-value="UNTAMED_FURY">UNTAMED_FURY</h1>
-  <script>
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  <!-- BACKGROUND GRID (effect unchanged) -->
+  <div id="container">
+    <div class="tile"></div>
+  </div>
 
-    let interval = null;
-    const element = document.querySelector("h1");
+  <!-- CENTER TEXT (your animated title) -->
+  <div id="center-text">
+    <h1 data-value="UNTAMED_FURY">UNTAMED_FURY</h1>
+  </div>
 
-    function animateText(event) {
-      let iteration = 0;
-      clearInterval(interval);
+  <!-- BOTTOM-LEFT LINKS (text only, no images) -->
+  <div id="links">
+    <div class="meta-link">
+      <span class="label">Links</span>
+      <span class="dot">·</span>
+      <a class="github" href="https://github.com/UnTamed-Fury" target="_blank">GitHub</a>
+      <span class="dot">·</span>
+      <a class="gitlab" href="https://gitlab.com/UnTameFury" target="_blank">GitLab</a>
+      <span class="dot">·</span>
+      <a class="instagram" href="https://instagram.com/untamed_fury_" target="_blank">Instagram</a>
+    </div>
+  </div>
 
-      interval = setInterval(() => {
-        event.target.innerText = event.target.innerText
-          .split("")
-          .map((letter, index) => {
-            if (index < iteration) {
-              return event.target.dataset.value[index];
-            }
-            return letters[Math.floor(Math.random() * 26)];
-          })
-          .join("");
+  <!-- GRID GENERATOR (tiles) -->
+  <script src="./script.js"></script>
 
-        if (iteration >= event.target.dataset.value.length) {
-          clearInterval(interval);
-        }
-
-        iteration += 1 / 3;
-      }, 30);
-    }
-
-    // Attach both hover and click events
-    element.onmouseover = animateText;
-    element.onclick = animateText;
-  </script>
-</div>
+  <!-- TEXT ANIMATION -->
+  <script src="./fury.js"></script>
 
 </body>
 </html>
