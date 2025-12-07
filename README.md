@@ -3,7 +3,7 @@
 My personal portfolio website built with Node.js and Express.
 
 ## Deployed on Netlify
-[![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR-SITE-ID/deploy-status)](https://app.netlify.com/sites/YOUR-SITE-NAME)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/dd0d2700-5612-435c-9a65-d4afccba6a0b/deploy-status)](https://app.netlify.com/projects/untamedfury/deploys)
 
 ## Features
 - Modern glass-morphism design
