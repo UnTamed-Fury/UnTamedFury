@@ -7,23 +7,23 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files from the new location
+app.use(express.static(path.join(__dirname, 'src', 'public')));
 
 // Set view engine if needed (optional, since we're serving static HTML)
-app.set('views', path.join(__dirname, 'public'));
+app.set('views', path.join(__dirname, 'src', 'public'));
 
 // Main routes
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'src', 'public', 'index.html'));
 });
 
 app.get('/about', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'about.html'));
+  res.sendFile(path.join(__dirname, 'src', 'public', 'about.html'));
 });
 
 app.get('/contacts', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'contacts.html'));
+  res.sendFile(path.join(__dirname, 'src', 'public', 'contacts.html'));
 });
 
 // API routes (optional, for future enhancement)
