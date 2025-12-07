@@ -99,6 +99,13 @@ h1 {
   text-shadow: 0 0 70px rgba(255,255,255,0.35);
 }
 
+/* Make the title smaller on About and Contact pages */
+body.about-page h1,
+body.contact-page h1 {
+  font-size: clamp(1.5rem, 6vw, 2.5rem);
+  padding: 0.8rem 2rem;
+}
+
 h1::before {
   content: '';
   position: absolute;
@@ -117,6 +124,14 @@ h1::before {
     inset 0 0 15px rgba(255, 255, 255, 0.1);
 
   z-index: -1;
+}
+
+/* Adjust title size for About and Contact pages */
+body.about-page h1::before,
+body.contact-page h1::before {
+  transform: translate(-50%, -50%) scale(0.85);
+  width: 110%;
+  height: 140%;
 }
 
 
@@ -168,12 +183,18 @@ h1::before {
 /* ABOUT & CONTACT PAGE STYLES */
 #about-content, #contact-content {
   position: absolute;
-  top: 55%; /* Position it below the title */
+  top: 45%; /* Position it below the smaller title */
   left: 50%;
   transform: translateX(-50%);
   width: 60%;
   max-width: 600px;
   z-index: 9; /* Lower than title to avoid overlap */
+}
+
+/* Keep original position for when body has no special class (home page doesn't have content boxes overlapping) */
+body.home-page #about-content,
+body.home-page #contact-content {
+  /* This won't apply to home page since these IDs aren't on home page */
 }
 
 .glass-card {
@@ -274,6 +295,12 @@ h1::before {
   display: flex;
   justify-content: center;
   z-index: 15;
+}
+
+/* Adjust footer position for About and Contact pages if needed */
+body.about-page #footer-links,
+body.contact-page #footer-links {
+  bottom: 1.5rem; /* Slightly higher to account for content */
 }
 
 .glass-footer {
