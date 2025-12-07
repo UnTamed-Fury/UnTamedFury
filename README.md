@@ -21,9 +21,10 @@ My personal portfolio website built with Node.js and Express.
 ## Local Development
 
 1. Clone the repository
-2. Install dependencies: `npm install`
-3. Start the development server: `npm run dev`
-4. Visit `http://localhost:3000`
+2. Make sure you're using Node.js v20: `nvm use` (if you have nvm installed)
+3. Install dependencies: `npm install`
+4. Start the development server: `npm run dev`
+5. Visit `http://localhost:3000`
 
 ## Deployment
 This site is configured for deployment on Netlify. The build process will:
