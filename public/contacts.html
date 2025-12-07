@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Contacts - UNTAMED_FURY</title>
+  <link rel="stylesheet" href="./style.css">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- BACKGROUND GRID (effect unchanged) -->
+  <div id="container">
+    <div class="tile"></div>
+  </div>
+
+  <!-- CENTER TEXT (your animated title) -->
+  <div id="center-text">
+    <h1 data-value="CONTACTS">CONTACTS</h1>
+  </div>
+
+  <!-- CONTACT CONTENT -->
+  <div id="contact-content">
+    <div class="glass-card">
+      <h2>Get In Touch</h2>
+      <div class="contact-links">
+        <a class="contact-link github" href="https://github.com/UnTamed-Fury" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" class="contact-icon-img">
+          <span class="contact-text">GitHub</span>
+        </a>
+        <a class="contact-link gitlab" href="https://gitlab.com/UnTamedFury" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/5969/5969889.png" alt="GitLab" class="contact-icon-img">
+          <span class="contact-text">GitLab</span>
+        </a>
+        <a class="contact-link instagram" href="https://instagram.com/untamed_fury_" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="contact-icon-img">
+          <span class="contact-text">Instagram</span>
+        </a>
+        <a class="contact-link reddit" href="https://reddit.com/u/untamed_fury_" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/2111/2111399.png" alt="Reddit" class="contact-icon-img">
+          <span class="contact-text">Reddit</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER WITH NAVIGATION -->
+  <div id="footer-links">
+    <div class="glass-footer">
+      <div class="footer-content">
+        <a class="nav-link home" href="./index.html">Home</a>
+        <span class="dot">·</span>
+        <a class="nav-link about" href="./about.html">About</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRID GENERATOR (tiles) -->
+  <script src="./script.js"></script>
+
+  <!-- TEXT ANIMATION -->
+  <script src="./fury.js"></script>
+
+</body>
+</html>

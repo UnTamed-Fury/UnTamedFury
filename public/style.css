@@ -1,0 +1,333 @@
+:root {
+  --background-rgb: 0 0 0;
+}
+
+/* Disable scroll */
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Center content */
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(var(--background-rgb));
+  font-family: 'Rubik', sans-serif;
+  perspective: 2000px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* BACKGROUND GRID (effect as in your file) */
+#container {
+  width: 140rem;
+  aspect-ratio: 1;
+  display: grid;
+  grid-template-rows: repeat(40, 1fr);
+  grid-template-columns: repeat(40, 1fr);
+
+  position: fixed;
+  inset: 0;
+  margin: auto;
+
+  transform: rotateX(50deg) rotateY(-5deg) rotateZ(20deg) scale(1.25);
+  z-index: 1;
+}
+
+#container:after,
+#container:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+#container:before {
+  z-index: 2;
+  background-image: url("https://assets.codepen.io/1468070/plus-pattern-center.png");
+  background-size: 5%;
+  opacity: 0.25;
+}
+
+#container:after {
+  z-index: 3;
+  background: radial-gradient(circle, transparent 25%, rgb(var(--background-rgb)) 80%);
+}
+
+.tile {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: none;
+}
+
+.tile:hover {
+  background: none;
+}
+
+/* CENTER TEXT (on top of everything) */
+#center-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+
+
+h1 {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(2.2rem, 9vw, 4rem); /* FIXED */
+  color: white;
+  padding: 1.2rem 3rem;
+  border-radius: 18px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+
+  text-shadow: 0 0 70px rgba(255,255,255,0.35);
+}
+
+h1::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.92);
+  width: 120%;
+  height: 160%;
+
+  background: linear-gradient(145deg, rgba(255,255,255, 0.1), rgba(255,255,255, 0.05));
+  border: 1px solid rgba(255,255,255, 0.2);
+  border-radius: 100px;
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 0 30px rgba(255, 255, 255, 0.2),
+    inset 0 0 15px rgba(255, 255, 255, 0.1);
+
+  z-index: -1;
+}
+
+
+/* BOTTOM LEFT LINKS (text only) */
+#links {
+  position: fixed;
+  bottom: 4rem; /* Position above the footer */
+  left: 1rem;
+  z-index: 15;
+
+  display: flex;
+  gap: 0.35rem;
+  font-family: 'Rubik', sans-serif;
+}
+
+.meta-link {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.meta-link .label {
+  color: white;
+  opacity: 0.85;
+  font-size: 1.1rem;
+}
+
+.meta-link .dot {
+  color: #ffffff75;
+  font-size: 1.1rem;
+}
+
+.meta-link a {
+  text-decoration: none;
+  font-size: 1.1rem;
+  opacity: 0.85;
+  transition: opacity .2s;
+}
+
+.meta-link a:hover {
+  opacity: 1;
+}
+
+.meta-link a.github { color: #9ecbff; }
+.meta-link a.gitlab { color: #ff9966; }
+.meta-link a.instagram { color: #ff66c4; }
+.meta-link a.reddit { color: #ff4500; }
+
+/* ABOUT & CONTACT PAGE STYLES */
+#about-content, #contact-content {
+  position: absolute;
+  top: 55%; /* Position it below the title */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  max-width: 600px;
+  z-index: 9; /* Lower than title to avoid overlap */
+}
+
+.glass-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 18px;
+  backdrop-filter: blur(6px);
+  padding: 2rem;
+  color: white;
+  font-family: 'Rubik', sans-serif;
+}
+
+.glass-card h2 {
+  font-family: 'Space Mono', monospace;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: white;
+  text-align: center;
+}
+
+/* CONTACT LINKS STYLING */
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  cursor: pointer; /* Ensures cursor shows as pointer */
+  text-align: center; /* Center the content */
+  min-height: 50px;
+  justify-content: flex-start; /* Align items to the start to maintain icon-text layout */
+}
+
+.contact-link:hover {
+  background: rgba(255,255,255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.3); /* Slightly more prominent border on hover */
+}
+
+.contact-icon {
+  font-size: 1.5rem;
+}
+
+.contact-icon-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  filter: invert(1); /* Make icons white for better visibility */
+}
+
+.contact-text {
+  font-family: 'Space Mono', monospace;
+}
+
+/* FOOTER NAVIGATION LINKS */
+.nav-link {
+  text-decoration: none;
+  font-size: 1.1rem;
+  opacity: 0.85;
+  transition: opacity .2s;
+  font-family: 'Space Mono', monospace;
+}
+
+.nav-link:hover {
+  opacity: 1;
+}
+
+.nav-link.home { color: #90ee90; }
+.nav-link.about { color: #add8e6; }
+.nav-link.contact { color: #ffb6c1; }
+
+.glass-card p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* FOOTER WITH GLASS EFFECT */
+#footer-links {
+  position: fixed;
+  bottom: 1rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 15;
+}
+
+.glass-footer {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 18px;
+  backdrop-filter: blur(6px);
+  padding: 0.8rem 1.5rem;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: 'Rubik', sans-serif;
+}
+
+.footer-content .label {
+  color: white;
+  opacity: 0.85;
+  font-size: 1.1rem;
+}
+
+.footer-content .dot {
+  color: #ffffff75;
+  font-size: 1.1rem;
+}
+
+.footer-content a {
+  text-decoration: none;
+  font-size: 1.1rem;
+  opacity: 0.85;
+  transition: opacity .2s;
+}
+
+.footer-content a:hover {
+  opacity: 1;
+}
+
+.footer-content a.github { color: #9ecbff; }
+.footer-content a.gitlab { color: #ff9966; }
+.footer-content a.instagram { color: #ff66c4; }
+.footer-content a.reddit { color: #ff4500; }
+.footer-content a.home { color: #90ee90; } /* Light green for home link */
+
+/* ABOUT LINK SPECIFIC STYLES */
+#links a.about {
+  color: #90ee90; /* Light green for about link */
+  text-decoration: none;
+  font-size: 1.1rem;
+  opacity: 0.85;
+  transition: opacity .2s;
+}
+
+#links a.about:hover {
+  opacity: 1;
+}
