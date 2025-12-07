@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Set view engine if needed (optional, since we're serving static HTML)
 app.set('views', path.join(__dirname, 'public'));
 
-// Routes
+// Main routes
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -36,9 +36,8 @@ app.get('/api/info', (req, res) => {
 });
 
 // 404 handler for undefined routes
-app.use('*', (req, res) => {
-  // Try to serve static files first, then fallback to index.html for SPA routing
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.use((req, res) => {
+  res.status(404).send('Page not found!');
 });
 
 // Error handling middleware
