@@ -183,18 +183,24 @@ body.contact-page h1::before {
 /* ABOUT & CONTACT PAGE STYLES */
 #about-content, #contact-content {
   position: absolute;
-  top: 45%; /* Position it below the smaller title */
+  top: 55%; /* Position it significantly below the smaller title */
   left: 50%;
   transform: translateX(-50%);
   width: 60%;
   max-width: 600px;
-  z-index: 9; /* Lower than title to avoid overlap */
+  z-index: 12; /* Higher than all other elements to ensure interactivity */
 }
 
 /* Keep original position for when body has no special class (home page doesn't have content boxes overlapping) */
 body.home-page #about-content,
 body.home-page #contact-content {
   /* This won't apply to home page since these IDs aren't on home page */
+}
+
+/* Reduce click interference from center text on about and contact pages */
+body.about-page #center-text,
+body.contact-page #center-text {
+  z-index: 5; /* Lower z-index so content appears above */
 }
 
 .glass-card {
