@@ -40,7 +40,7 @@ body {
   margin: auto;
 
   transform: rotateX(50deg) rotateY(-5deg) rotateZ(20deg) scale(1.25);
-  z-index: 1;
+  z-index: 2; /* Above particles but below title */
 }
 
 #container:after,
@@ -82,7 +82,15 @@ body {
   z-index: 10;
 }
 
-
+/* PARTICLES.JS CONTAINER */
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1; /* Behind the grid but above the background */
+}
 
 h1 {
   font-family: 'Space Mono', monospace;
@@ -302,6 +310,11 @@ body.contact-page #center-text {
   display: flex;
   justify-content: center;
   z-index: 15;
+  transition: all 0.3s ease;
+}
+
+#footer-links:hover {
+  transform: scale(1.05);
 }
 
 /* Adjust footer position for About and Contact pages if needed */
@@ -310,12 +323,23 @@ body.contact-page #footer-links {
   bottom: 1.5rem; /* Slightly higher to account for content */
 }
 
+/* Footer hover effects only for home page */
+body.home-page #footer-links:hover {
+  transform: scale(1.05);
+}
+
 .glass-footer {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 18px;
   backdrop-filter: blur(6px);
   padding: 0.8rem 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.glass-footer:hover {
+  background: rgba(255,255,255, 0.08);
+  border: 1px solid rgba(255,255,255, 0.2);
 }
 
 .footer-content {

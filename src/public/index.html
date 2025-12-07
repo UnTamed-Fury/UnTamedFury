@@ -35,11 +35,62 @@
     </div>
   </div>
 
+  <!-- PARTICLES BACKGROUND -->
+  <div id="particles-js"></div>
+
   <!-- GRID GENERATOR (tiles) -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script src="./script.js"></script>
 
   <!-- TEXT ANIMATION -->
   <script src="./fury.js"></script>
+
+  <!-- PARTICLES CONFIG -->
+  <script>
+    // Initialize particles.js only on home page
+    document.addEventListener('DOMContentLoaded', function() {
+      if (document.body.classList.contains('home-page')) {
+        particlesJS('particles-js', {
+          particles: {
+            number: { value: 50, density: { enable: true, value_area: 800 } },
+            color: { value: "#ffffff" },
+            shape: { type: "circle" },
+            opacity: { value: 0.1, random: true },
+            size: { value: 3, random: true },
+            line_linked: {
+              enable: true,
+              distance: 150,
+              color: "#ffffff",
+              opacity: 0.05,
+              width: 1
+            },
+            move: {
+              enable: true,
+              speed: 0.5,
+              direction: "none",
+              random: true,
+              straight: false,
+              out_mode: "out",
+              bounce: false
+            }
+          },
+          interactivity: {
+            detect_on: "canvas",
+            events: {
+              onhover: { enable: true, mode: "grab" },
+              onclick: { enable: true, mode: "push" },
+              resize: true
+            },
+            modes: {
+              grab: { distance: 140, line_linked: { opacity: 0.15 } },
+              push: { particles_nb: 4 }
+            }
+          },
+          retina_detect: true
+        });
+      }
+    });
+  </script>
 
 </body>
 </html>
