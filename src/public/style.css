@@ -105,6 +105,9 @@ h1 {
   z-index: 10;
 
   text-shadow: 0 0 70px rgba(255,255,255,0.35);
+
+  /* Add smooth transitions for hover effects */
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 
 /* Make the title smaller on About and Contact pages */
