@@ -3,47 +3,53 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Official portfolio website of UNTAMED_FURY - showcasing projects, skills, and contact information">
   <title>UNTAMED_FURY</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Rubik:wght@400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="stylesheet" href="./style.css">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Rubik:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Rubik:wght@400;500&display=swap" rel="stylesheet"></noscript>
 </head>
 
-<body class="home-page">
+<body class="home-page" aria-label="UNTAMED_FURY portfolio homepage">
 
   <!-- BACKGROUND GRID (effect unchanged) -->
-  <div id="container">
+  <div id="container" aria-hidden="true">
     <div class="tile"></div>
   </div>
 
   <!-- CENTER TEXT (your animated title) -->
   <div id="center-text">
-    <h1 data-value="UNTAMED_FURY">UNTAMED_FURY</h1>
+    <h1 data-value="UNTAMED_FURY" tabindex="0" role="banner" aria-label="UNTAMED_FURY">UNTAMED_FURY</h1>
   </div>
 
   <!-- FOOTER WITH NAVIGATION -->
-  <div id="footer-links">
+  <div id="footer-links" role="contentinfo">
     <div class="glass-footer">
       <div class="footer-content">
-        <a class="nav-link about" href="./about.html">About</a>
-        <span class="dot">·</span>
-        <a class="nav-link contact" href="./contacts.html">Contact</a>
+        <a class="nav-link about" href="./about.html" aria-label="About page">About</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a class="nav-link contact" href="./contacts.html" aria-label="Contact page">Contact</a>
       </div>
     </div>
   </div>
 
   <!-- PARTICLES BACKGROUND -->
-  <div id="particles-js"></div>
+  <div id="particles-js" aria-hidden="true"></div>
 
   <!-- GRID GENERATOR (tiles) -->
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  <script src="./script.js"></script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
+  <script src="./script.js" defer></script>
 
   <!-- TEXT ANIMATION -->
-  <script src="./fury.js"></script>
+  <script src="./fury.js" defer></script>
 
   <!-- PARTICLES CONFIG -->
   <script>
@@ -90,6 +96,21 @@
         });
       }
     });
+  </script>
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./sw.js')
+          .then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          })
+          .catch(function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+    }
   </script>
 
 </body>

@@ -1,90 +1,107 @@
-const container = document.querySelector("#container"),
-      tile = document.querySelector(".tile");
-
-// Create tiles with random opacity for a more dynamic effect
-for (let i = 0; i < 1599; i++) {
-  const newTile = tile.cloneNode();
-  // Add subtle random opacity variation for a more dynamic grid
-  newTile.style.opacity = 0.15 + Math.random() * 0.1;
-  container.appendChild(newTile);
+// Optimized tile creation
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', createTiles);
+} else {
+  createTiles();
 }
 
-// Throttle function to limit mousemove events
-function throttle(func, limit) {
-  let inThrottle;
-  return function() {
-    const args = arguments;
-    const context = this;
-    if (!inThrottle) {
-      func.apply(context, args);
-      inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
-    }
+function createTiles() {
+  const container = document.querySelector("#container");
+  const tile = document.querySelector(".tile");
+
+  // Store a tile template to improve performance
+  const tileTemplate = tile.cloneNode();
+  container.removeChild(tile); // Remove the original tile since we will add it back programmatically
+
+  // Use DocumentFragment to reduce DOM manipulations
+  const fragment = document.createDocumentFragment();
+
+  // Create tiles with random opacity for a more dynamic effect
+  for (let i = 0; i < 1600; i++) { // Changed to 1600 to include the original tile
+    const newTile = tileTemplate.cloneNode();
+    // Add subtle random opacity variation for a more dynamic grid
+    newTile.style.opacity = 0.15 + Math.random() * 0.1;
+    fragment.appendChild(newTile);
   }
+
+  container.appendChild(fragment);
 }
 
-// Optimized mouse move effect to create a ripple effect
+// Optimized mouse move effect using passive event listener
 let animationFrameId = null;
 let mouseX = 0;
 let mouseY = 0;
 let isMouseMoving = false;
 
-document.addEventListener('mousemove', throttle((e) => {
+// Use requestAnimationFrame to batch DOM updates
+function handleMouseMove(e) {
   mouseX = e.clientX / window.innerWidth;
   mouseY = e.clientY / window.innerHeight;
 
   if (!isMouseMoving) {
     isMouseMoving = true;
-    applyTileTransforms();
+    if (!animationFrameId) {
+      animationFrameId = requestAnimationFrame(applyTileTransforms);
+    }
   }
-}, 16)); // ~60fps
+}
+
+// Add passive option for better performance
+document.addEventListener('mousemove', handleMouseMove, { passive: true });
 
 function applyTileTransforms() {
-  if (animationFrameId) {
-    cancelAnimationFrame(animationFrameId);
+  const speedX = (0.5 - mouseX) * 0.5;
+  const speedY = (0.5 - mouseY) * 0.5;
+
+  // Cache tile elements to avoid repeated DOM queries
+  const tiles = document.querySelectorAll('.tile');
+
+  // Use CSS transforms for better performance than changing other properties
+  for (let i = 0; i < tiles.length; i++) {
+    const tile = tiles[i];
+    // Apply subtle movement to tiles for a parallax effect
+    tile.style.transform = `translate3d(${speedX * 2}px, ${speedY * 2}px, 0)`;
   }
 
-  animationFrameId = requestAnimationFrame(() => {
-    const tiles = document.querySelectorAll('.tile');
-    const speedX = (0.5 - mouseX) * 0.5;
-    const speedY = (0.5 - mouseY) * 0.5;
-
-    // Apply transforms in batches for better performance
-    for (let i = 0; i < tiles.length; i++) {
-      const tile = tiles[i];
-      const delay = (i % 40) * 0.01; // Add subtle delay for wave effect
-
-      // Apply subtle movement to tiles for a parallax effect
-      tile.style.transform = `translate(${speedX * 2}px, ${speedY * 2}px)`;
-    }
-
-    // Continue animation if mouse is still moving
-    if (isMouseMoving) {
-      applyTileTransforms();
-    }
-  });
+  // Continue animation if mouse is still moving
+  if (isMouseMoving) {
+    animationFrameId = requestAnimationFrame(applyTileTransforms);
+  }
 }
 
 // Reset tile positions when mouse stops moving
 let mouseMoveTimeout;
-document.addEventListener('mousemove', () => {
+const handleMouseMoveWithTimeout = (e) => {
+  // Update mouse position immediately
+  mouseX = e.clientX / window.innerWidth;
+  mouseY = e.clientY / window.innerHeight;
+
   clearTimeout(mouseMoveTimeout);
 
-  const tiles = document.querySelectorAll('.tile');
-  tiles.forEach(tile => {
-    tile.style.transition = 'transform 0.1s ease';
-  });
+  // Add class to enable transitions only when needed
+  if (!isMouseMoving) {
+    isMouseMoving = true;
+    if (!animationFrameId) {
+      animationFrameId = requestAnimationFrame(applyTileTransforms);
+    }
+  }
 
   mouseMoveTimeout = setTimeout(() => {
     isMouseMoving = false;
+
+    // Reset transforms gradually using CSS transitions
     if (animationFrameId) {
       cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
     }
 
     const tiles = document.querySelectorAll('.tile');
-    tiles.forEach(tile => {
-      tile.style.transform = 'translate(0, 0)';
-      tile.style.transition = 'transform 0.5s ease';
-    });
+    // Animate back to original position
+    for (let i = 0; i < tiles.length; i++) {
+      tiles[i].style.transform = 'translate3d(0, 0, 0)';
+    }
   }, 100);
-});
+};
+
+// Use passive event listener
+document.addEventListener('mousemove', handleMouseMoveWithTimeout, { passive: true });

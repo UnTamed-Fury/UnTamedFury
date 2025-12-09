@@ -3,45 +3,51 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Get in touch with UNTAMED_FURY through various social platforms and contact methods">
   <title>Contacts - UNTAMED_FURY</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Rubik:wght@400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="stylesheet" href="./style.css">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Rubik:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Rubik:wght@400;500&display=swap" rel="stylesheet"></noscript>
 </head>
 
-<body class="contact-page">
+<body class="contact-page" aria-label="Contact page for UNTAMED_FURY">
 
   <!-- BACKGROUND GRID (effect unchanged) -->
-  <div id="container">
+  <div id="container" aria-hidden="true">
     <div class="tile"></div>
   </div>
 
   <!-- CENTER TEXT (your animated title) -->
   <div id="center-text">
-    <h1 data-value="CONTACTS">CONTACTS</h1>
+    <h1 data-value="CONTACTS" tabindex="0" role="banner" aria-label="Contact">CONTACTS</h1>
   </div>
 
   <!-- CONTACT CONTENT -->
-  <div id="contact-content">
+  <div id="contact-content" role="main">
     <div class="glass-card">
       <h2>Get In Touch</h2>
       <div class="contact-links">
-        <a class="contact-link github" href="https://github.com/UnTamed-Fury" target="_blank">
+        <a class="contact-link github" href="https://github.com/UnTamed-Fury" target="_blank" aria-label="GitHub profile">
           <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" class="contact-icon-img">
           <span class="contact-text">GitHub</span>
         </a>
-        <a class="contact-link gitlab" href="https://gitlab.com/UnTamedFury" target="_blank">
+        <a class="contact-link gitlab" href="https://gitlab.com/UnTamedFury" target="_blank" aria-label="GitLab profile">
           <img src="https://cdn-icons-png.flaticon.com/512/5968/5968853.png" alt="GitLab" class="contact-icon-img">
           <span class="contact-text">GitLab</span>
         </a>
-        <a class="contact-link instagram" href="https://instagram.com/untamed_fury_" target="_blank">
+        <a class="contact-link instagram" href="https://instagram.com/untamed_fury_" target="_blank" aria-label="Instagram profile">
           <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" class="contact-icon-img">
           <span class="contact-text">Instagram</span>
         </a>
-        <a class="contact-link reddit" href="https://reddit.com/u/untamed_fury_" target="_blank">
+        <a class="contact-link reddit" href="https://reddit.com/u/untamed_fury_" target="_blank" aria-label="Reddit profile">
           <img src="https://cdn-icons-png.flaticon.com/512/2111/2111589.png" alt="Reddit" class="contact-icon-img">
           <span class="contact-text">Reddit</span>
         </a>
@@ -50,21 +56,36 @@
   </div>
 
   <!-- FOOTER WITH NAVIGATION -->
-  <div id="footer-links">
+  <div id="footer-links" role="contentinfo">
     <div class="glass-footer">
       <div class="footer-content">
-        <a class="nav-link home" href="./index.html">Home</a>
-        <span class="dot">·</span>
-        <a class="nav-link about" href="./about.html">About</a>
+        <a class="nav-link home" href="./index.html" aria-label="Home page">Home</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a class="nav-link about" href="./about.html" aria-label="About page">About</a>
       </div>
     </div>
   </div>
 
   <!-- GRID GENERATOR (tiles) -->
-  <script src="./script.js"></script>
+  <script src="./script.js" defer></script>
 
   <!-- TEXT ANIMATION -->
-  <script src="./fury.js"></script>
+  <script src="./fury.js" defer></script>
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./sw.js')
+          .then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          })
+          .catch(function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+    }
+  </script>
 
 </body>
 </html>
